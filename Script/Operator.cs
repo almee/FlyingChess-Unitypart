@@ -30,6 +30,12 @@ public class Operator : MonoBehaviour {
 		int user4 = int.Parse (users [3]);
 
 		if (user4 == 2 || user2 == 2 || user3 == 2 || user4 == 2) Game_object.online = true;
+
+		if (user1 == 1) Game_object.whoAmI = user1;
+		if (user2 == 1) Game_object.whoAmI = user2;
+		if (user3 == 1) Game_object.whoAmI = user3;
+		if (user4 == 1) Game_object.whoAmI = user4;
+
 		Game_object.started = true;
 		Game_object.userType [0] = user1;
 		Game_object.userType [1] = user2;

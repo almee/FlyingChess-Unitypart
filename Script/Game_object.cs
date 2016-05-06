@@ -19,6 +19,9 @@ namespace Com.ModelManamger {
 		"g1", "g2", "g3", "g4"};
 
 
+		//在线游戏标记本机的号码
+		public static int whoAmI;
+
 		//标记游戏是否结束
 		public static bool over = false;
 

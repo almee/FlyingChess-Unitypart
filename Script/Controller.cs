@@ -5,6 +5,7 @@ using Com.Usertype.AI;
 using Com.Usertype.Online;
 using Com.Usertype.Manual;
 using Com.ModelManamger;
+using Com.Windows;
 using Com.BehaviourManamger;
 namespace Com.Controller {
 	public class Controller {
@@ -38,6 +39,8 @@ namespace Com.Controller {
 			switch (Game_object.userType [userNum]) {
 			case 0:
 				diceNum = AI_instance.turnDice();
+				//在机器人投了骰子之后,选飞机之前如果取消了机器人,需要保存数据到人工选择上
+				ManualBuffer.diceNum = diceNum; 
 				break;
 				
 			case 1:
@@ -206,8 +209,14 @@ namespace Com.Controller {
 			if (userNum >= 4)
 				userNum = 0;
 			changePlane ();
-						ManualBuffer.userNum = userNum;
-						OnlineBuffer.userNum = userNum;
+			ManualBuffer.userNum = userNum;
+			OnlineBuffer.userNum = userNum;
+			if (Game_object.online && userNum == Game_object.whoAmI) {
+				NewBehaviourScript.timeToEmit = 10;
+				NewBehaviourScript.judging = true;
+			} else {
+				NewBehaviourScript.judging = false;
+			}
 			//resetDice();
 		}
 
