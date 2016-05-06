@@ -18,6 +18,17 @@ namespace Com.ModelManamger {
 		public string[] plane = new string[] {"r1", "r2", "r3", "r4", "b1", "b2", "b3", "b4", "y1", "y2", "y3","y4",
 		"g1", "g2", "g3", "g4"};
 
+
+		//标记游戏是否结束
+		public static bool over = false;
+
+		//标记是否联机
+		public static bool online = false;
+
+		//标记是否已经开始游戏
+		public static bool started = false;
+
+		//标记用户类型
 		public static int[] userType = new int[] {1 ,1 ,1 ,1};
 
 		//用于存储每个对象所处的位置的坐标，避免每次遍历的麻烦；

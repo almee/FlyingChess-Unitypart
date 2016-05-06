@@ -119,12 +119,19 @@ namespace Com.Controller {
 		/*
 		 * 统一：重置控制器内的标志位
 		 *       重置骰子图案
+		 *       给安卓传输这一步的数据
 		 * AI： 不需要处理
 		 * 本地： 将diceDone与planeDone标志位置为false
 		 * 网络： 将doceDone与planeDone标志位置为false
 		 * 空白： 不需要处理
 		 * */
 		private void ready(int thisUser) {
+			if (Game_object.online) {
+				AndroidJavaClass jc = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+				AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject> ("curentActivity");
+				jo.Call ("SentNext", userNum, planeNum, diceNum);
+			}
+
 			switch (Game_object.userType [thisUser]) {
 			case 0:
 				break;
@@ -159,7 +166,7 @@ namespace Com.Controller {
 
 		//主程序， update中无限跑
 		public void run() {
-			if (running) return;
+			if (!Game_object.started || running) return;
 			running = true;
 			if (hasDice == false) {
 				if (getDice () == false) {
@@ -184,8 +191,9 @@ namespace Com.Controller {
 				action();
 				if (diceNum != 6) {
 					nextUser();
+				} else {
+					ready(userNum);
 				}
-				ready(userNum);
 				running = false;
 			}
 		}
