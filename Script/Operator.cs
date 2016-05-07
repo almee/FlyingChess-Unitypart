@@ -18,7 +18,8 @@ public class Operator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		controller.run ();
+		//controller.run ();
+        StartCoroutine(controller.run());
 	}
 
 	bool startGame(string input) {

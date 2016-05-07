@@ -168,7 +168,8 @@ namespace Com.Controller {
 		}
 
 		//主程序， update中无限跑
-		public void run() {
+        public IEnumerator run()
+        {
 			if (!Game_object.started || running) return;
 			running = true;
 			if (hasDice == false) {
@@ -177,6 +178,7 @@ namespace Com.Controller {
 					return;
 				}
 			}
+            yield return new WaitForSeconds(1f);
 			if (diceNum == -1 || (diceNum != 6 && Action.allAtHome(userNum))) {
 				nextUser();
 				running = false;
@@ -192,6 +194,7 @@ namespace Com.Controller {
 					return;
 				}
 				action();
+                yield return new WaitForSeconds(3f);
 				if (diceNum != 6) {
 					nextUser();
 				} else {
@@ -199,6 +202,7 @@ namespace Com.Controller {
 				}
 				running = false;
 			}
+            yield return new WaitForSeconds(1f);
 		}
 		
 		//切换用户
