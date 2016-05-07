@@ -20,7 +20,7 @@ namespace Com.ModelManamger {
 
 
 		//在线游戏标记本机的号码
-		public static int whoAmI;
+		public static int whoAmI = -1;
 
 		//标记游戏是否结束
 		public static bool over = false;

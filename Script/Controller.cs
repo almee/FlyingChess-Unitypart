@@ -129,11 +129,11 @@ namespace Com.Controller {
 		 * 空白： 不需要处理
 		 * */
 		private void ready(int thisUser) {
-			if (Game_object.online) {
+			/*if (Game_object.online) {
 				AndroidJavaClass jc = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
 				AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject> ("curentActivity");
 				jo.Call ("SentNext", userNum, planeNum, diceNum);
-			}
+			}*/
 
 			switch (Game_object.userType [thisUser]) {
 			case 0:
@@ -214,7 +214,9 @@ namespace Com.Controller {
 			if (Game_object.online && userNum == Game_object.whoAmI) {
 				NewBehaviourScript.timeToEmit = 10;
 				NewBehaviourScript.judging = true;
+				Debug.Log("计时开始");
 			} else {
+				Debug.Log("计时结束");
 				NewBehaviourScript.judging = false;
 			}
 			//resetDice();
@@ -292,8 +294,22 @@ namespace Com.Controller {
 				Action.Done(4 * thisUser + thisPlane);
 				Debug.Log ("done");
 			}
+			if (all_Done(thisUser)) {
+				Game_object.over = true;
+				Game_object.started = false;
+			}
 		}
-		
+
+		private bool all_Done(int thisUser) {
+			int now = 4 * thisUser;
+			for (int i = now; i < now + 4; i++) {
+				if (!Game_object.done[i]) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		public static Controller GetInstance() {
 			if (Controller_instance == null) {
 				Controller_instance = new Controller();
